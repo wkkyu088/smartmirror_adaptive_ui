@@ -12,9 +12,9 @@ function createMainWindow() {
         width: 1080,
         height: 700,
         webPreferences: {
-            nodeIntegration: true
-        },
-        autoHideMenuBar: true
+            nodeIntegration: true,
+            webSecurity: false
+        }
     });
     var mainWindowUrl = url.pathToFileURL(path.join(__dirname, '../build/index.html')).toString();
     mainWindow.loadURL(isDev ? baseUrl : mainWindowUrl);

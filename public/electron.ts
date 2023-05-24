@@ -15,8 +15,9 @@ function createMainWindow(): void {
     height: 700,
     webPreferences: {
       nodeIntegration: true,
+      webSecurity: false,
     },
-    autoHideMenuBar: true,
+    // autoHideMenuBar: true,
 
     // 전체화면으로 사용할 때
     // alwaysOnTop: true,
