@@ -105,7 +105,7 @@ const App: React.FC = () => {
           <CustomIconButton onClick={onReset}><RefreshIcon sx={{fontSize: '24px'}} /></CustomIconButton>
         </Stack>
       </Stack>
-      <MainPage age={age2} pos={pos} gender={gender} fontScale={fontScale} fontSize={fontSize} />
+      <MainPage fontScale={fontScale} fontSize={fontSize} />
       <CustomIconButton onClick={() => {
         setGender(gender==="Male" ? "Female" : "Male");
         setAge2(age2+30<100 ? age2+30 : age2); 
