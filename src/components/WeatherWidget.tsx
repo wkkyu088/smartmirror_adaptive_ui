@@ -118,14 +118,14 @@ const WeatherWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontSca
     }
 
     return (
-        <Grid container alignItems="center" justifyContent='center' px={4} py={2}>
+        <Grid container alignItems="center" justifyContent='center' p={2}>
             <Grid item xs={4} justifyContent='center'>
-                <Box sx={{fontSize: `${(fontSize+60)*fontScale}px`, padding: '30px 0 0 0', textAlign: 'center'}}>{getIcon(icon)}</Box>
+                <Box sx={{fontSize: `${(fontSize+50)*fontScale}px`, padding: '20px 0 0 0', textAlign: 'center'}}>{getIcon(icon)}</Box>
             </Grid>
             <Grid item xs={8}>
                 <Stack>
                     <Stack direction="row" alignItems="end" spacing={fontScale===1 ? 1 : fontScale===1.2 ? 1.5 : 2}>
-                        <Box sx={{fontSize: `${(fontSize+30)*fontScale}px`}}>{temp.toFixed(0)}º</Box>
+                        <Box sx={{fontSize: `${(fontSize+20)*fontScale}px`}}>{temp.toFixed(0)}º</Box>
                         <Box sx={{fontSize: `${(fontSize-6)*fontScale}px`, paddingBottom: '10px'}}>{translateMain(main)}</Box>
                     </Stack>
                     <Stack direction="row" spacing={fontScale===1 ? 1.5 : fontScale===1.2 ? 2 : 2.5}>

@@ -43,7 +43,7 @@ const MainPage: React.FC<{fontScale: number, fontSize: number}> = ({fontScale, f
 
     return (
         <Body alignItems="center">
-            <TransBox sx={{fontSize: `${(fontSize-4)*fontScale}px`}}>{currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</TransBox>
+            <TransBox sx={{fontSize: `${(fontSize-8)*fontScale}px`}}>{currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</TransBox>
             <TransBox sx={{fontSize: `${(fontSize)*fontScale}px`}}>{currentTime.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true })}</TransBox>
             {widgetList[widget]}
             <Grid container spacing={1} p={2} maxWidth="lg">
