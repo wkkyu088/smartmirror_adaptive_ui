@@ -7,7 +7,6 @@ import CalendarWidget from './components/CalendarWidget';
 import WeatherWidget from './components/WeatherWidget';
 
 const MainPage: React.FC<{fontScale: number, fontSize: number}> = ({fontScale, fontSize}) => {    
-    // const ageList = ['(0-2)', '(4-6)', '(8-12)', '(15-20)', '(25-32)', '(38-43)', '(48-53)', '(60-100)']
     const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [widget, setWidget] = useState(0);
@@ -36,7 +35,6 @@ const MainPage: React.FC<{fontScale: number, fontSize: number}> = ({fontScale, f
         };
     
         window.addEventListener('resize', handleResize);
-        // console.log(`screenWidth: ${screenWidth}, screenHeight: ${screenHeight}`)
     
         return () => {
           window.removeEventListener('resize', handleResize);

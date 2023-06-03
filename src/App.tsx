@@ -7,50 +7,60 @@ import RefreshIcon from '@mui/icons-material/RefreshRounded';
 import DownIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
 import TextUp from '@mui/icons-material/TextIncreaseRounded';
 import TextDown from '@mui/icons-material/TextDecreaseRounded';
+import { BeatLoader } from 'react-spinners';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setAge, setPos, setScale } from './redux/actions';
+import RootState from './redux/RootState';
 
 import MainPage from './MainPage';
 
 const App: React.FC = () => {
   const [on, setOn] = useState(false);
-  const [pos, setPos] = useState(0);
-  const [age, setAge] = useState(0);
-  const [age2, setAge2] = useState(0);
-  const [fontScale, setFontScale] = useState(1);
-  const [gender, setGender] = useState('');
-  const [screenHeight, setScreenHeight] = useState<number>(window.innerHeight);
+  const [loading, setLoading] = useState(false);
   const [fontSize, setFontSize] = useState(25);
 
-  // Fetch data from the API
-  const fetchData = async () => {
-      try {
-          const response = await axios.get('http://localhost:5000/detect_age');
-          console.log(response.data)
+  let age = useSelector((state: RootState) => state.age);
+  let pos = useSelector((state: RootState) => state.pos);
+  let scale = useSelector((state: RootState) => state.scale);
+  const dispatch = useDispatch();
 
-          const value = response.data;
-          setPos(value.y);
-          // setAge(value.age);
-          setAge2(value.age);
-          // setFontScale(value.age===5 ? 1.2 : value.age<5 ? 1 : 1.5);
-          setFontScale(value.age>55 ? 1.5 : value.age>38 ? 1.2 : 1);
-          setGender(value.gender);
+  // Fetch data from server
+  const fetchOnce = async () => {
+      setLoading(true);
+
+      try {
+          const response = await axios.get('http://localhost:5000/detect_age', {timeout: 15000});
+          
+          const v = {'age': response.data.age, 'y': response.data.y};
+          console.log(v)
+
+          handleButtonClick(v.age, v.y);
       } catch (error) {
           console.error('Failed to retrieve face coordinates:', error);
+      } finally {
+        setLoading(false);
       }
   };
 
-  // Fetch data every 3 seconds
+  // Fetch data from server every 10 seconds
   useEffect(() => {
-      let interval: NodeJS.Timeout;
+    let interval: NodeJS.Timeout;
 
-      if (on) {
-          fetchData();
-          interval = setInterval(fetchData, 3000);
-      }
+    if (on) {
+        fetchOnce();
+        interval = setInterval(fetchOnce, 10000);
+    }
 
-      return () => {
-          clearInterval(interval);
-      };
+    return () => {
+        clearInterval(interval);
+    };
   }, [on]);
+
+  // Print the current state
+  useEffect(() => {
+    console.log(`### age: ${age}, pos: ${pos}, scale: ${scale}`);
+  }, [age, pos, scale]);
 
   // Toggle the fetch data
   const onToggle = () => {
@@ -61,13 +71,11 @@ const App: React.FC = () => {
   // Reset the fetch data
   const onReset = () => {
     setOn(false);
-    setPos(0);
-    setAge(0);
-    setAge2(0);
-    setFontScale(1); 
-    setGender('');
+    dispatch(setPos(0));
+    dispatch(setAge(25));
+    dispatch(setScale(1));
     setFontSize(25);
-    console.log(`Reset!`);
+    console.log('Reset!')
   };
 
   // Increase the font size
@@ -82,6 +90,13 @@ const App: React.FC = () => {
     console.log({fontSize: fontSize-5});
   };
 
+  // Handle the button click
+  const handleButtonClick = (age: number, pos: number) => {
+    dispatch(setAge(age));
+    dispatch(setPos(pos));
+    dispatch(setScale(age>55 ? 1.5 : age>38 ? 1.2 : 1));
+  }
+
   return (
     <Frame sx={{top: `${pos}px`}}>
       <Stack direction="row" justifyContent="space-between" p={1}>
@@ -93,26 +108,26 @@ const App: React.FC = () => {
           </CustomIconButton>
           <Box sx={{fontSize: '14px'}}>{on ? 'Now On' : 'Now Off'}</Box>
         </Stack>
+        {
+          loading ? 
+          <Stack alignItems="center" justifyContent='center' sx={{transform: 'scale(0.5)'}}>
+            <BeatLoader color="white" margin={3} />
+          </Stack> : null
+        }
         <Stack direction="row" spacing={0.5}>
           <FontWidget onClick={onClickUp}>
-              <TextUp sx={{fontSize: '20px', marginRight: '2px'}} />
-              <Box>크게</Box>
+              <TextUp sx={{fontSize: '18px', marginRight: '2px'}} />
+              <Box sx={{fontSize: '14px'}}>크게</Box>
           </FontWidget>
           <FontWidget onClick={onClickDown}>
-              <TextDown sx={{fontSize: '20px', marginRight: '2px'}} />
-              <Box>작게</Box>
+              <TextDown sx={{fontSize: '18px', marginRight: '2px'}} />
+              <Box sx={{fontSize: '14px'}}>작게</Box>
           </FontWidget>
           <CustomIconButton onClick={onReset}><RefreshIcon sx={{fontSize: '24px'}} /></CustomIconButton>
         </Stack>
       </Stack>
-      <MainPage fontScale={fontScale} fontSize={fontSize} />
-      <CustomIconButton onClick={() => {
-        setGender(gender==="Male" ? "Female" : "Male");
-        setAge2(age2+30<100 ? age2+30 : age2); 
-        setFontScale(age2+30>60 ? 1.5 : age2+30>40 ? 1.2 : 1);
-        setPos(pos+50<screenHeight-50 ? pos+50 : pos);
-        console.log({gender, age2, fontScale, pos});
-        }}><DownIcon /></CustomIconButton>
+      <MainPage fontScale={scale} fontSize={fontSize} />
+      <CustomIconButton onClick={() => handleButtonClick(age+30, pos+50)}><DownIcon /></CustomIconButton>
     </Frame>
   );
 };
@@ -134,7 +149,7 @@ const CustomIconButton = styled(IconButton)(() => ({
 const FontWidget = styled(IconButton)(() => ({
   color: 'white',
   padding: '3px 6px',
-  borderRadius: '10px',
+  borderRadius: '8px',
   border: '1px solid white',
   fontSize: '14px'
 }));

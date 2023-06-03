@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { WiDaySunny, WiCloudy, WiDayCloudy, WiRain, WiSnow, WiNightClear, WiNightCloudy, WiNightAltRain } from 'react-icons/wi';
 import { Box, Stack, Grid } from '@mui/material/'
-import { FadeLoader } from 'react-spinners';
+import { BeatLoader } from 'react-spinners';
 
 const WeatherWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontScale, fontSize}) => {    
     const api = {
@@ -49,7 +49,7 @@ const WeatherWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontSca
 
     if (!weatherData) {
       return <Box p={2} sx={{transform: `scale(${fontScale===1 ? 0.5 : fontScale===1.2 ? 0.8 : 1.2})`}}>
-          <FadeLoader color="white" />
+          <BeatLoader color="white" margin={3} />
         </Box>
     }
 
