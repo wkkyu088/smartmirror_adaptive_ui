@@ -74,7 +74,7 @@ const App: React.FC = () => {
     dispatch(setPos(0));
     dispatch(setAge(25));
     dispatch(setScale(1));
-    setFontSize(40);
+    setFontSize(42);
     console.log('Reset!')
   };
 
@@ -127,7 +127,7 @@ const App: React.FC = () => {
         </Stack>
       </Stack>
       <MainPage fontScale={scale} fontSize={fontSize} />
-      <CustomIconButton onClick={() => handleButtonClick(age+30, pos+600)}><DownIcon /></CustomIconButton>
+      {/* <CustomIconButton onClick={() => handleButtonClick(age+30, pos+600)}><DownIcon /></CustomIconButton> */}
     </Frame>
   );
 };

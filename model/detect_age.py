@@ -73,20 +73,22 @@ def detect_age():
             predicted_ages = results[1].dot(ages).flatten()
             
             age = int(predicted_ages[0])
-            print('Age:', age, 'Coordinates:', [x1, y1, x2, y2])  
+            print('Age:', age, 'Coordinates:', [xw1, yw1, xw2, yw2])  
                         
-            result = {'age': int(age), 'y': float(yw1), 'time': elapsed_time}
+            result = {'age': int(age), 'y': float(yw1)}
             resultArray.append(result)
     
     trimmed_age = stats.trim_mean([d['age'] for d in resultArray], 0.1)
     trimmed_y = stats.trim_mean([d['y'] for d in resultArray], 0.1)
     
+    print(f"---- Trimmed Age: {trimmed_age:.2f}, Trimmed Y: {trimmed_y:.2f}")
     end_time = time.time()
     elapsed_time = end_time - start_time
     print(f"Elapsed time: {elapsed_time:.2f} seconds")
     print("Multi :: Done")
     
     response = jsonify({'age': int(trimmed_age), 'y': float(trimmed_y)})
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/')
