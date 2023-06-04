@@ -43,23 +43,23 @@ const MainPage: React.FC<{fontScale: number, fontSize: number}> = ({fontScale, f
 
     return (
         <Body alignItems="center">
-            <TransBox sx={{fontSize: `${(fontSize-8)*fontScale}px`}}>{currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</TransBox>
-            <TransBox sx={{fontSize: `${(fontSize)*fontScale}px`}}>{currentTime.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true })}</TransBox>
+            <TransBox sx={{fontSize: `${(fontSize-2)*fontScale}px`}}>{currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</TransBox>
+            <TransBox sx={{fontSize: `${(fontSize+10)*fontScale}px`}}>{currentTime.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true })}</TransBox>
             {widgetList[widget]}
             <Grid container spacing={1} p={2} maxWidth="lg">
                 {
                     iconList.map((icon, i) => {
                         const IconComponent = icon.component;
-                        return <Grid item key={i} xs={fontScale===1 ? 12/5 : fontScale===1.2 ? 12/4 : 12/3}>
+                        return <Grid item key={i} xs={fontScale===1 ? 12/8 : fontScale===1.2 ? 12/6.5 : 12/5}>
                             <Stack alignItems="center" spacing={fontScale===1 ? 0.8 : fontScale===1.2 ? 1 : 1.5}>
                                 <IconBox onClick={() => setWidget(i)} sx={{
-                                    width: `${fontScale===1 ? screenWidth/5-15 : fontScale===1.2 ? screenWidth/4-20 : screenWidth/3-25}px`, 
-                                    height: `${fontScale===1 ? screenWidth/5-15 : fontScale===1.2 ? screenWidth/4-20 : screenWidth/3-25}px`,
+                                    width: `${fontScale===1 ? screenWidth/8-15 : fontScale===1.2 ? screenWidth/6.5-20 : screenWidth/5-25}px`, 
+                                    height: `${fontScale===1 ? screenWidth/8-15 : fontScale===1.2 ? screenWidth/6.5-20 : screenWidth/5-25}px`,
                                     color: widget===i ? 'black' : 'white',
                                     backgroundColor: widget===i ? 'white' : 'transparent',
                                     }} 
                                 >
-                                    <IconComponent sx={{fontSize: `${fontScale===1 ? screenWidth/5/2 : fontScale===1.2 ? screenWidth/4/2 : screenWidth/3/2}px`}} />
+                                    <IconComponent sx={{fontSize: `${fontScale===1 ? screenWidth/8/2 : fontScale===1.2 ? screenWidth/6.5/2 : screenWidth/5/2}px`}} />
                                 </IconBox>
                                 <Box sx={{fontSize: `${(fontSize-12)*fontScale}px`}}>{icon.name}</Box>
                             </Stack>
@@ -79,7 +79,7 @@ const Body = styled(Stack)(() => ({
 
 const TransBox = styled(Box)(() => ({
     transition: 'all 0.6s ease-in-out',
-    padding: '2px',
+    padding: '1px',
 }));
 
 const IconBox = styled(IconButton)(() => ({

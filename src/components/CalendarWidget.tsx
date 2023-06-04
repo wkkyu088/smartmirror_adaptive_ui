@@ -8,8 +8,8 @@ const CalendarWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontSc
     const [date, setDate] = useState(new Date());
 
     return (
-        <Stack alignItems="center" mx={2} my={1} p={1}>
-            <Box sx={{fontSize: `${(fontSize-5)*fontScale}px`, paddingY: '15px', fontFamily: 'PretendardB'}}>{moment(date).format('M 월')}</Box>
+        <Stack alignItems="center" mx={15} my={5}>
+            <Box sx={{fontSize: `${(fontSize-10)*fontScale}px`, paddingY: '30px', fontFamily: 'PretendardB'}}>{moment(date).format('M 월')}</Box>
             <div>
                 <Calendar 
                     className={'react-calendar'}
@@ -38,7 +38,7 @@ const CalendarWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontSc
                     .react-calendar__month-view__weekdays__weekday {
                         text-decoration: none;
                         padding-bottom: 0.5em;
-                        font-size: ${(fontSize-12) * fontScale}px;
+                        font-size: ${(fontSize-20) * fontScale}px;
                         color: lightgrey;
                         font-family: 'Pretendard';
                     }
@@ -60,10 +60,10 @@ const CalendarWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontSc
                     }
 
                     .react-calendar__tile {
-                        font-size: ${(fontSize-12) * fontScale}px;
+                        font-size: ${(fontSize-18) * fontScale}px;
                         max-width: 100%;
                         margin: 5px 0;
-                        padding: 15px;
+                        padding: 20px;
                         background: none;
                         text-align: center;
                         border: none;

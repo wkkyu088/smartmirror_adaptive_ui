@@ -18,7 +18,7 @@ import MainPage from './MainPage';
 const App: React.FC = () => {
   const [on, setOn] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [fontSize, setFontSize] = useState(25);
+  const [fontSize, setFontSize] = useState(42);
 
   let age = useSelector((state: RootState) => state.age);
   let pos = useSelector((state: RootState) => state.pos);
@@ -35,7 +35,7 @@ const App: React.FC = () => {
           const v = {'age': response.data.age, 'y': response.data.y};
           console.log(v)
 
-          handleButtonClick(v.age, v.y);
+          handleButtonClick(v.age, v.y*2);
       } catch (error) {
           console.error('Failed to retrieve face coordinates:', error);
       } finally {
@@ -74,7 +74,7 @@ const App: React.FC = () => {
     dispatch(setPos(0));
     dispatch(setAge(25));
     dispatch(setScale(1));
-    setFontSize(25);
+    setFontSize(40);
     console.log('Reset!')
   };
 
@@ -103,31 +103,31 @@ const App: React.FC = () => {
         <Stack direction="row" alignItems="center">
           <CustomIconButton onClick={onToggle}>
             {
-              on ? <PauseIcon sx={{fontSize: '24px'}} /> : <StartIcon sx={{fontSize: '24px'}} />
+              on ? <PauseIcon sx={{fontSize: '34px'}} /> : <StartIcon sx={{fontSize: '34px'}} />
             }
           </CustomIconButton>
-          <Box sx={{fontSize: '14px'}}>{on ? 'Now On' : 'Now Off'}</Box>
+          <Box sx={{fontSize: '20px'}}>{on ? 'Now On' : 'Now Off'}</Box>
         </Stack>
         {
           loading ? 
-          <Stack alignItems="center" justifyContent='center' sx={{transform: 'scale(0.5)'}}>
+          <Stack alignItems="center" justifyContent='center' sx={{transform: 'scale(0.8)'}}>
             <BeatLoader color="white" margin={3} />
           </Stack> : null
         }
         <Stack direction="row" spacing={0.5}>
           <FontWidget onClick={onClickUp}>
-              <TextUp sx={{fontSize: '18px', marginRight: '2px'}} />
-              <Box sx={{fontSize: '14px'}}>크게</Box>
+              <TextUp sx={{fontSize: '24px', marginRight: '2px'}} />
+              <Box sx={{fontSize: '20px'}}>크게</Box>
           </FontWidget>
           <FontWidget onClick={onClickDown}>
-              <TextDown sx={{fontSize: '18px', marginRight: '2px'}} />
-              <Box sx={{fontSize: '14px'}}>작게</Box>
+              <TextDown sx={{fontSize: '24px', marginRight: '2px'}} />
+              <Box sx={{fontSize: '20px'}}>작게</Box>
           </FontWidget>
-          <CustomIconButton onClick={onReset}><RefreshIcon sx={{fontSize: '24px'}} /></CustomIconButton>
+          <CustomIconButton onClick={onReset}><RefreshIcon sx={{fontSize: '34px'}} /></CustomIconButton>
         </Stack>
       </Stack>
       <MainPage fontScale={scale} fontSize={fontSize} />
-      <CustomIconButton onClick={() => handleButtonClick(age+30, pos+50)}><DownIcon /></CustomIconButton>
+      <CustomIconButton onClick={() => handleButtonClick(age+30, pos+600)}><DownIcon /></CustomIconButton>
     </Frame>
   );
 };

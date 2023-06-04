@@ -6,7 +6,8 @@ import { BeatLoader } from 'react-spinners';
 
 const WeatherWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontScale, fontSize}) => {    
     const api = {
-        key: "bd5cf52571826a90733a70b8c519da0b",
+        // key: "",
+        key: "d107402520d4b92baa26bdefbae6f456",
         base: "https://api.openweathermap.org/data/2.5/",
     };
     const city = "Seoul";
@@ -48,7 +49,7 @@ const WeatherWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontSca
     }, [city]);
 
     if (!weatherData) {
-      return <Box p={2} sx={{transform: `scale(${fontScale===1 ? 0.5 : fontScale===1.2 ? 0.8 : 1.2})`}}>
+      return <Box p={15} sx={{transform: `scale(${fontScale===1 ? 1 : fontScale===1.2 ? 1.5 : 2})`}}>
           <BeatLoader color="white" margin={3} />
         </Box>
     }
@@ -118,19 +119,19 @@ const WeatherWidget: React.FC<{fontScale: number, fontSize: number}> = ({fontSca
     }
 
     return (
-        <Grid container alignItems="center" justifyContent='center' p={2}>
+        <Grid container alignItems="center" justifyContent='center' px={15} py={10}>
             <Grid item xs={4} justifyContent='center'>
-                <Box sx={{fontSize: `${(fontSize+50)*fontScale}px`, padding: '20px 0 0 0', textAlign: 'center'}}>{getIcon(icon)}</Box>
+                <Box sx={{fontSize: `${(fontSize*3)*fontScale}px`, paddingTop: `${fontScale===1 ? 25 : fontScale===1.2 ? 35 : 50}px`, textAlign: 'center'}}>{getIcon(icon)}</Box>
             </Grid>
             <Grid item xs={8}>
-                <Stack>
-                    <Stack direction="row" alignItems="end" spacing={fontScale===1 ? 1 : fontScale===1.2 ? 1.5 : 2}>
+                <Stack spacing={1}>
+                    <Stack direction="row" alignItems="end" spacing={fontScale===1 ? 2 : fontScale===1.2 ? 1.5 : 2}>
                         <Box sx={{fontSize: `${(fontSize+20)*fontScale}px`}}>{temp.toFixed(0)}º</Box>
-                        <Box sx={{fontSize: `${(fontSize-6)*fontScale}px`, paddingBottom: '10px'}}>{translateMain(main)}</Box>
+                        <Box sx={{fontSize: `${(fontSize-8)*fontScale}px`, paddingBottom: '5px'}}>{translateMain(main)}</Box>
                     </Stack>
                     <Stack direction="row" spacing={fontScale===1 ? 1.5 : fontScale===1.2 ? 2 : 2.5}>
-                        <Box sx={{fontSize: `${(fontSize-10)*fontScale}px`, paddingBottom: '10px'}}>{temp_max.toFixed(0)}º / {temp_min.toFixed(0)}º</Box>
-                        <Box sx={{fontSize: `${(fontSize-10)*fontScale}px`, paddingBottom: '10px'}}>체감온도 {feels_like.toFixed(0)}º</Box>
+                        <Box sx={{fontSize: `${(fontSize-18)*fontScale}px`, paddingBottom: '10px'}}>최고 {temp_max.toFixed(0)}º / 최저 {temp_min.toFixed(0)}º</Box>
+                        <Box sx={{fontSize: `${(fontSize-18)*fontScale}px`, paddingBottom: '10px'}}>/ 체감온도 {feels_like.toFixed(0)}º</Box>
                     </Stack>
                 </Stack>
             </Grid>

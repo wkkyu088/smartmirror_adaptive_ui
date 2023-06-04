@@ -20,7 +20,8 @@ import cv2
 modhash = 'fbe63257a054c1c5466cfd7bf14646d6'
     
 # Initialize Webcam
-camera = cv2.VideoCapture(0)
+# camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(cv2.CAP_DSHOW)
         
 @app.route('/detect_age', methods=['GET'])
 def detect_age():
@@ -50,7 +51,7 @@ def detect_age():
         if not success:
             cv2.waitKey()
             break  
-            
+        
         input_img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img_h, img_w, _ = np.shape(input_img)
         detected = detector(frame, 1)
@@ -72,9 +73,9 @@ def detect_age():
             predicted_ages = results[1].dot(ages).flatten()
             
             age = int(predicted_ages[0])
-            print('Age:', age, 'Coordinates:', [x1, y1, x2, y2])                
-            
-            result = {'age': int(age), 'y': float(yw1)}
+            print('Age:', age, 'Coordinates:', [x1, y1, x2, y2])  
+                        
+            result = {'age': int(age), 'y': float(yw1), 'time': elapsed_time}
             resultArray.append(result)
     
     trimmed_age = stats.trim_mean([d['age'] for d in resultArray], 0.1)
@@ -84,7 +85,9 @@ def detect_age():
     elapsed_time = end_time - start_time
     print(f"Elapsed time: {elapsed_time:.2f} seconds")
     print("Multi :: Done")
-    return jsonify({'age': int(trimmed_age), 'y': float(trimmed_y)})
+    
+    response = jsonify({'age': int(trimmed_age), 'y': float(trimmed_y)})
+    return response
 
 @app.route('/')
 def hello():
