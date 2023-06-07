@@ -20,6 +20,7 @@
 <img src="https://github.com/wkkyu088/smartmirror_adaptive_ui/assets/82702064/88dd5d79-0d94-4afd-8c07-70ab9516a59f" width="1000" />
 
 ### - Flow Chart
+- [참고 저장소 (Deep-Surveillance-Monitor-Facial-Emotion-Age-Gender-Recognition-System)](https://github.com/kaushikjadhav01/Deep-Surveillance-Monitor-Facial-Emotion-Age-Gender-Recognition-System)
 <img src="https://github.com/wkkyu088/smartmirror_adaptive_ui/assets/82702064/74ce8692-b752-439e-bd42-3bdf49e8d5eb" width="400" />
 
 ### - Screenshot
